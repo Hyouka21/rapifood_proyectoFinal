@@ -85,7 +85,7 @@ public class MeseroData {
    return meseros;}
     
     public void actualizarMesero(Mesero mesero){
-    String sql="UPDATE mesero SET dni_mesero=?,cuit_mesero=?,nombre_mesero=?, apellido_mesero=?, estado_mesero=? ";
+    String sql="UPDATE mesero SET dni_mesero=?,cuit_mesero=?,nombre_mesero=?,apellido_mesero=?,estado_mesero=? WHERE id_mesero=?";
     try{
     PreparedStatement ps = con.prepareStatement(sql);
     ps.setInt(1, mesero.getDni());
@@ -93,6 +93,7 @@ public class MeseroData {
     ps.setString(3, mesero.getNombre());
     ps.setString(4, mesero.getApellido());
     ps.setBoolean(5, mesero.isEstado());
+    ps.setInt(6, mesero.getIdMesero());
     ps.executeUpdate();
     // JOptionPane.showMessageDialog(null, "Mesero actualizado con exito");
     }catch(SQLException e){

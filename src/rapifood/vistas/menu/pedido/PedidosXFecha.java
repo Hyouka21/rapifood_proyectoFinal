@@ -69,6 +69,16 @@ public class PedidosXFecha extends javax.swing.JInternalFrame {
             }
         });
 
+        jTabla = new javax.swing.JTable(){
+            @Override
+            public Class<?> getColumnClass(int columna) {
+
+                if(columna==3){
+                    return Boolean.class;
+                }
+                return String.class;
+            }
+        };
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

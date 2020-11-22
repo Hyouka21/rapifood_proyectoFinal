@@ -106,6 +106,9 @@
               </Table>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTabla = new javax.swing.JTable(){&#xa;@Override&#xa;       public Class&lt;?&gt; getColumnClass(int columna) {&#xa;         &#xa;         if(columna==3){&#xa;        return Boolean.class;&#xa;       }&#xa;       return String.class;&#xa;}&#xa;};"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

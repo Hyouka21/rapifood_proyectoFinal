@@ -53,6 +53,22 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jbModificar = new javax.swing.JButton();
 
+        jTabla = new javax.swing.JTable(){
+            @Override
+            public Class<?> getColumnClass(int columna) {
+
+                if(columna==5){
+                    return Boolean.class;
+                }
+                return String.class;
+            }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(column==0){
+                    return false;}
+                return true;
+            }
+        };
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -90,6 +106,11 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
         jLabel7.setText("Meseros");
 
         jbModificar.setText("Modificar");
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,7 +146,7 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbModificar)
-                .addGap(44, 44, 44))
+                .addGap(184, 184, 184))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,11 +181,11 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
+                .addGap(28, 28, 28)
                 .addComponent(jbModificar)
-                .addGap(21, 21, 21))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -203,9 +224,49 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
             }
             
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        // TODO add your handling code here:
+         int filaSeleccionada=jTabla.getSelectedRow();
+         
+        if(filaSeleccionada!=-1){
+                    
+            int id=(Integer) modelo.getValueAt(filaSeleccionada, 0);
+            
+            String val="^[0-9]+$";
+            String nomb="[a-z A-Z]*";
+                 if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(val)){
+                if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val)){
+                if(modelo.getValueAt(filaSeleccionada, 3).toString().matches(nomb)){
+                if(modelo.getValueAt(filaSeleccionada, 4).toString().matches(nomb)){     
+                      
+                int dni=Integer.parseInt(modelo.getValueAt(filaSeleccionada, 1).toString());
+                int cuit=Integer.parseInt(modelo.getValueAt(filaSeleccionada, 2).toString());
+                String nombre=modelo.getValueAt(filaSeleccionada, 3).toString();
+                String apellido=modelo.getValueAt(filaSeleccionada, 4).toString();
+                boolean est=Boolean.valueOf(modelo.getValueAt(filaSeleccionada, 5).toString());
+                Mesero m;
+                m = md.buscarMesero(id);
+                m.setDni(dni);
+                m.setCuit(cuit);
+                m.setNombre(nombre);
+                m.setApellido(apellido);
+                m.setEstado(est);
+                int x =JOptionPane.showConfirmDialog(this, "Desea cambiar Producto?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+            if(x== JOptionPane.YES_OPTION){
+                md.actualizarMesero(m);}
+                cargaDatosMesero();
+           
+                }else{JOptionPane.showMessageDialog(this,"El apellido a modificar es invalido"); }
+                }else{JOptionPane.showMessageDialog(this,"El nombre a modificar es invalido"); }
+                }else{JOptionPane.showMessageDialog(this,"El cuit a modificar es invalido"); }
+                }else{JOptionPane.showMessageDialog(this,"El dni a modificar es invalido"); }
+        
+        }
+    }//GEN-LAST:event_jbModificarActionPerformed
 public void armaCabeceraTabla(){
            //Titulos de Columnas
-        ArrayList<Object> columnas=new ArrayList<Object>();
+        ArrayList<Object> columnas=new ArrayList<>();
         columnas.add("Id");
         columnas.add("Dni");
         columnas.add("Cuit");
