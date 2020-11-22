@@ -112,7 +112,7 @@ public class ReservaData {
                 reserva.setEstadoReserva(rs.getBoolean(7));
                 reserva.setFechaAhora(rs.getTimestamp(8).toLocalDateTime());
                 reserva.setCantidadCliente(rs.getInt(9));
-                JOptionPane.showMessageDialog(null, "Reserva encontrada");
+                //JOptionPane.showMessageDialog(null, "Reserva encontrada");
             }
             rs.close();
             ps.close();

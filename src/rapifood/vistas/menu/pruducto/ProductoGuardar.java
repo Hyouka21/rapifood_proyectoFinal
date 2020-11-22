@@ -5,10 +5,13 @@
  */
 package rapifood.vistas.menu.pruducto;
 
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import rapifood.entidades.Producto;
 import rapifood.modelo.*;
@@ -28,6 +31,9 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
         this.setLocation(450, 100);
         armaCabeceraTabla();
         cargaDatosProducto();
+        this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);//activar la x
+        this.setFrameIcon(null); //sacar la flecha izquierda
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI(); Container north = (Container)ui.getNorthPane(); north.remove(0); north.validate(); north.repaint();//repasar
     }
 
     /**
