@@ -73,7 +73,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
         }
     }
     public void limpiarCampos(){
-        jComboBoxMesa.setSelectedIndex(-1);
+        jComboBoxMesa.setSelectedIndex(0);
         jTextFieldNombre.setText("");
         jTextFieldApellido.setText("");
         jTextFieldComensales.setText("");
@@ -259,7 +259,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        jTable.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
+        jTable.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -323,7 +323,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Leelawadee UI", 0, 18)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabel13.setText("Mesa Para:");
 
         jLabelmesaCant.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
@@ -424,13 +424,17 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jComboBoxMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel13))
-                                    .addComponent(jLabelmesaCant, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jComboBoxMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabelmesaCant, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -582,7 +586,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
             }
                 
         }
-        
+       cargaDatosReserva(); 
         
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
@@ -646,29 +650,35 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                     
                                 }else{
                                     JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DD");
+                                    cargaDatosReserva();
                                 }
                                 
                             }else{
                                 JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna COMENSALES");
+                                cargaDatosReserva();
                             }
                             
                         }else{
                             JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna DNI");
+                            cargaDatosReserva();
                         }
                         
                     }else{
                         JOptionPane.showMessageDialog(this, "Ingrese solo letras en la columna APELLIDO");
+                        cargaDatosReserva();
                     }
                     
                 }else{
                     JOptionPane.showMessageDialog(this, "Ingrese solo letras en la columna NOMBRE");
+                    cargaDatosReserva();
                 }
                 
             }else{
                 JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna MESA");
+                cargaDatosReserva();
             }
         }
-        
+        cargaDatosReserva();
     }//GEN-LAST:event_jButtonGuardarCambiosActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed

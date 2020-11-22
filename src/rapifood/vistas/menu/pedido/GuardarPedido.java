@@ -69,6 +69,8 @@ private DefaultTableModel modelo=new DefaultTableModel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jbAct = new javax.swing.JButton();
 
+        setClosable(true);
+
         jcheakEstado.setText("Activo");
 
         jTabla = new javax.swing.JTable(){

@@ -35,9 +35,9 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
         cargarComboBox();
         
         this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);//activar la x
-        this.setFrameIcon(null); 
+        this.setFrameIcon(null);
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI(); Container north = (Container)ui.getNorthPane(); north.remove(0); north.validate(); north.repaint();//repasar
-        
+            
     }
 
     public void cargarComboBox(){
@@ -62,6 +62,8 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jButtonGuardarCambios = new javax.swing.JButton();
+
+        setClosable(true);
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -115,6 +117,7 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
                 return false;
             }
         };
+        jTable.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -226,7 +229,9 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
                 Mesa m= new Mesa(estado,cantidadPersonas);
                 md.guardarMesa(m);
                 JOptionPane.showMessageDialog(null,"Mesa Registrada");
+                cargaDatosMesa();
             }
+            
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jComboBoxCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCantidadPersonasActionPerformed
@@ -271,6 +276,7 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
                 cargaDatosMesa();
             }
         }
+        cargaDatosMesa();
     }//GEN-LAST:event_jButtonGuardarCambiosActionPerformed
     private void armaCabeceraTabla(){
            //Titulos de Columnas
