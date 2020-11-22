@@ -5,9 +5,12 @@
  */
 package rapifood.vistas.menu.mesa;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import rapifood.entidades.*;
 import rapifood.modelo.*;
@@ -32,6 +35,10 @@ public class MesaModificar extends javax.swing.JInternalFrame {
         modelo.isCellEditable(0, 1);
         this.cargaDatosMesa();
         this.setResizable(false);
+        
+        setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);//activar la x
+        this.setFrameIcon(null); //sacar la flecha izquierda
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI(); Container north = (Container)ui.getNorthPane(); north.remove(0); north.validate(); north.repaint();//repasar
         
     }
 
@@ -67,6 +74,8 @@ public class MesaModificar extends javax.swing.JInternalFrame {
                 return false;
             }
         };
+        jTable.setBackground(new java.awt.Color(204, 204, 204));
+        jTable.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -78,6 +87,7 @@ public class MesaModificar extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
+        jTable.setGridColor(new java.awt.Color(0, 0, 0));
         jTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable);
 

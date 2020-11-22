@@ -5,27 +5,38 @@
  */
 package rapifood.vistas.menu.mesa;
 
+import java.awt.Container;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 import rapifood.entidades.Mesa;
-import rapifood.entidades.Producto;
 import rapifood.modelo.*;
+import javax.swing.JInternalFrame;
 
-/**
- *
- * @author joni
- */
+
 public class MesaGuardar extends javax.swing.JInternalFrame {
-
+    
+    private DefaultTableModel modelo=new DefaultTableModel();
     Conexion c = new Conexion();
     Mesa mesa;
     MesaData md;
     public MesaGuardar() {
         initComponents();
         md = new MesaData(c);
-        this.setLocation(450, 100);
+        this.setLocation(250, 100);
         Conexion c = new Conexion();
+        modelo.isCellEditable(0, 1);
+        armaCabeceraTabla();
+        this.cargaDatosMesa();
         this.setResizable(false);
         cargarComboBox();
+        
+        this.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);//activar la x
+        this.setFrameIcon(null); 
+        BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI(); Container north = (Container)ui.getNorthPane(); north.remove(0); north.validate(); north.repaint();//repasar
         
     }
 
@@ -46,20 +57,22 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
         jCheckBoxActivo = new javax.swing.JCheckBox();
         jLabelEstado = new javax.swing.JLabel();
         jButtonGuardar = new javax.swing.JButton();
-        jButtonSalir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonGuardarCambios = new javax.swing.JButton();
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
         jLabel3.setText("Mesa");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelCapacidadMesa.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabelCapacidadMesa.setForeground(new java.awt.Color(0, 0, 255));
+        jLabelCapacidadMesa.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabelCapacidadMesa.setText("Capacidad Mesa:");
 
         jComboBoxCantidadPersonas.setBackground(new java.awt.Color(240, 240, 240));
-        jComboBoxCantidadPersonas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jComboBoxCantidadPersonas.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         jComboBoxCantidadPersonas.setToolTipText("");
         jComboBoxCantidadPersonas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,7 +80,7 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
             }
         });
 
-        jCheckBoxActivo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jCheckBoxActivo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jCheckBoxActivo.setText("Activo");
         jCheckBoxActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,12 +88,11 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabelEstado.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabelEstado.setForeground(new java.awt.Color(0, 0, 204));
+        jLabelEstado.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabelEstado.setText("Estado:");
 
-        jButtonGuardar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonGuardar.setForeground(new java.awt.Color(0, 0, 204));
+        jButtonGuardar.setBackground(new java.awt.Color(0, 255, 0));
+        jButtonGuardar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,14 +100,46 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonSalir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButtonSalir.setForeground(new java.awt.Color(0, 0, 204));
-        jButtonSalir.setText("Salir");
-        jButtonSalir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255), 0));
-        jButtonSalir.setBorderPainted(false);
-        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+        jTable = new javax.swing.JTable(){
+            @Override
+            public Class<?> getColumnClass(int columna) {
+                if(columna==2){
+                    return Boolean.class;
+                }
+                return String.class;
+            }
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(column==1 || column ==2){
+                    return true;}
+                return false;
+            }
+        };
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable);
+
+        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102), 5));
+
+        jLabel1.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        jLabel1.setText("Modificar Mesa");
+
+        jButtonGuardarCambios.setBackground(new java.awt.Color(0, 255, 0));
+        jButtonGuardarCambios.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        jButtonGuardarCambios.setText("Guardar Cambios");
+        jButtonGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalirActionPerformed(evt);
+                jButtonGuardarCambiosActionPerformed(evt);
             }
         });
 
@@ -106,42 +150,69 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelCapacidadMesa)
-                            .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxActivo)
-                            .addComponent(jComboBoxCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(jButtonGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelCapacidadMesa)
+                                        .addGap(51, 51, 51))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabelEstado)
+                                        .addGap(47, 47, 47)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBoxCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBoxActivo)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(143, 143, 143)
+                                .addComponent(jLabel1)))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonGuardarCambios)
+                        .addGap(135, 135, 135))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCapacidadMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(78, 78, 78)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxActivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCapacidadMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBoxActivo))
+                        .addGap(72, 72, 72)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonGuardarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                        .addGap(26, 26, 26)))
+                .addContainerGap())
         );
 
         pack();
@@ -167,18 +238,86 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxActivoActionPerformed
 
-    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButtonSalirActionPerformed
+    private void jButtonGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarCambiosActionPerformed
+        int filaSelec=jTable.getSelectedRow();
+        if(filaSelec!=-1){
+            
+            String val="[0-9]*";
+            
+            if(modelo.getValueAt(filaSelec, 1).toString().matches(val)){
 
+            int id = Integer.parseInt(modelo.getValueAt(filaSelec,0).toString());        
+            int cantidadPersona = Integer.parseInt(modelo.getValueAt(filaSelec, 1).toString());
+            boolean estado = Boolean.parseBoolean(modelo.getValueAt(filaSelec, 2).toString());
+                if(cantidadPersona>0 && cantidadPersona<13){
+                
+                    int x =JOptionPane.showConfirmDialog(this, "Desea Modificar la Mesa?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+
+                    if(x== JOptionPane.YES_OPTION){
+                        Mesa m;
+                        m=md.buscarMesa(id);
+                        m.setCapacidadMaxima(cantidadPersona);
+                        m.setEstadoMesa(estado);
+                        md.actualizarMesa(m);
+                        borraFilasTabla();
+                        cargaDatosMesa();
+                    }
+                }else{
+                    JOptionPane.showInternalMessageDialog(this, "Ingrese numeros entre 1 y 12.");
+                    cargaDatosMesa();
+                }
+            }else{
+                JOptionPane.showInternalMessageDialog(this, "Ingrese numeros entre 1 y 12.");
+                cargaDatosMesa();
+            }
+        }
+    }//GEN-LAST:event_jButtonGuardarCambiosActionPerformed
+    private void armaCabeceraTabla(){
+           //Titulos de Columnas
+        ArrayList<Object> columnas=new ArrayList<Object>();
+        columnas.add("ID");
+        columnas.add("Cantidad Personas");
+        columnas.add("Estado");
+        
+        for(Object it:columnas){
+        
+            modelo.addColumn(it);
+        }
+        jTable.setModel(modelo);
+    }
+    private void borraFilasTabla(){
+
+        int a =modelo.getRowCount()-1;
+
+           for(int i=a;i>=0;i--){
+   
+                modelo.removeRow(i);
+           }
+    }
+    private void cargaDatosMesa(){
+    
+        borraFilasTabla();
+           //Llenar filas
+        
+        List<Mesa> lista = md.obtenerMesas();
+        
+        for(Mesa m:lista){
+        
+            modelo.addRow(new Object[]{m.getIdMesa(),m.getCapacidadMaxima(),m.isEstadoMesa()});
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonSalir;
+    private javax.swing.JButton jButtonGuardarCambios;
     private javax.swing.JCheckBox jCheckBoxActivo;
     private javax.swing.JComboBox<String> jComboBoxCantidadPersonas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelCapacidadMesa;
     private javax.swing.JLabel jLabelEstado;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }
