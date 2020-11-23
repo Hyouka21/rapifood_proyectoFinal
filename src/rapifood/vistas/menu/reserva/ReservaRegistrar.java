@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -525,33 +526,33 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
         }else{
             String nomb= "[a-z \\s A-Z]*";
             String val="^[0-9]+$";
-            
-            
+            int num=Integer.parseInt(jTextFieldComensales.getText());
+            Mesa m=(Mesa)jComboBoxMesa.getSelectedItem();
+            int cant=m.getCapacidadMaxima();
             if(jTextFieldNombre.getText().matches(nomb)){
                 if(jTextFieldApellido.getText().matches(nomb)){    
-                    if(jTextFieldDNI.getText().matches(val)){
-                        if(jTextFieldComensales.getText().matches(val)){
+                    if(jTextFieldDNI.getText().matches(val)&& jTextFieldDNI.getText().length() <= 8){
+                        if(jTextFieldComensales.getText().matches(val)&& num<=cant ){
   
                                 LocalTime horaActual = LocalTime.now();
                                 LocalDate fechaActual = LocalDate.now();
-                                
+                               
                                      //obtengo fecha del dateChooser
-                                int year= jDateChooserFechaReserva.getCalendar().get(Calendar.YEAR);   
-                                int mes = jDateChooserFechaReserva.getCalendar().get(Calendar.MONTH);   
-                                int day = jDateChooserFechaReserva.getCalendar().get(Calendar.DAY_OF_MONTH);
+                                LocalDate fechaReserva = LocalDateTime.ofInstant(jDateChooserFechaReserva.getDate().toInstant(), ZoneId.systemDefault()).toLocalDate();  
+                        
                                     //obtengo hora del dateChooser
                                 int hora = (Integer)jSpinnerHora.getValue();
                                 int mins = (Integer)jSpinnerMins.getValue();
                                 
                                 LocalTime horaReserva=LocalTime.of(hora, mins);
-                                LocalDate fechaReserva=LocalDate.of(year, ++mes, day);
+                                   
                                 
-                                    if(fechaReserva.compareTo(fechaActual)==1 || (horaReserva.compareTo(horaActual)==1 && fechaReserva.compareTo(fechaActual)==0)){
+                                    if(fechaReserva.compareTo(fechaActual)>0 || (horaReserva.compareTo(horaActual)>0 && fechaReserva.compareTo(fechaActual)==0)){
                                         
                                         int x =JOptionPane.showConfirmDialog(this, "Esta seguro?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                                         if(x== JOptionPane.YES_OPTION){
 
-                                            Mesa m =(Mesa)jComboBoxMesa.getSelectedItem();
+                                            
                                             String nombre = jTextFieldNombre.getText();
                                             String apellido= jTextFieldApellido.getText();
                                             int dni= Integer.parseInt(jTextFieldDNI.getText());
@@ -559,7 +560,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                                     
                                             boolean estado = jCheckBoxEstado.isEnabled();
 
-                                            Reserva r = new Reserva(m,dni,nombre,apellido,LocalDate.of(year, mes, day),LocalTime.of(hora,mins,00),estado,comensales);
+                                            Reserva r = new Reserva(m,dni,nombre,apellido,fechaReserva,LocalTime.of(hora,mins,00),estado,comensales);
                                             rd.registrarReserva(r);
                                             limpiarCampos();
                                             cargaDatosReserva();
@@ -570,11 +571,11 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                     }
                                 
                         }else{
-                            JOptionPane.showMessageDialog(this, "Cantidad Comensales invalido");
+                            JOptionPane.showMessageDialog(this, "Cantidad Comensales invalido\n recuerde que debe ser menor o igual ala capacidad de la mesa");
                         }
                         
                     }else{
-                        JOptionPane.showMessageDialog(this, "El DNI es invalido");
+                        JOptionPane.showMessageDialog(this, "El DNI es invalido\n\n Recuerde que debe ingresarse un dni con 8 digitos o menor");
                     }
                     
                 }else{
