@@ -249,11 +249,11 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         String val="^[0-9]+$";
             String nomb="[a-z A-Z]*";
-            if(jtDni.getText().matches(val)){
-            if(jtCuil.getText().matches(val)){
+            if(jtDni.getText().matches(val)&&jtDni.getText().length()<=8){
+            if(jtCuil.getText().matches(val)&&jtCuil.getText().length()<=10){
             if(jtNombre.getText().matches(nomb)){
             if(jtApellido.getText().matches(nomb)){
-     
+ //////////////////////Para la proxima usar string en un cuil///////////////////////////////////    
         int dni=Integer.parseInt(jtDni.getText());
         int cuit=Integer.parseInt(jtCuil.getText());
         String nombre=jtNombre.getText();
@@ -272,12 +272,12 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Ingrese un nombre valido");
             }
             }else{
-                JOptionPane.showMessageDialog(this, "Ingrese un cuil valido");  
+                JOptionPane.showMessageDialog(this, "El cuit es invalido\n\nRecuerde debe tener 10 digitos o menos");  
             }
             }else{        
-            JOptionPane.showMessageDialog(this, "Ingrese un dni valido");
+            JOptionPane.showMessageDialog(this, "El dni es invalido\n\nRecuerde debe tener 8 digitos o menos");
             }
-            
+     cargaDatosMesero();       
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
@@ -290,8 +290,8 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
             
             String val="^[0-9]+$";
             String nomb="[a-z A-Z]*";
-                 if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(val)){
-                if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val)){
+                 if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(val) && modelo.getValueAt(filaSeleccionada, 1).toString().length()<=8){
+                if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val) && modelo.getValueAt(filaSeleccionada, 2).toString().length()<=10){
                 if(modelo.getValueAt(filaSeleccionada, 3).toString().matches(nomb)){
                 if(modelo.getValueAt(filaSeleccionada, 4).toString().matches(nomb)){     
                       
@@ -314,10 +314,11 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
            
                 }else{JOptionPane.showMessageDialog(this,"El apellido a modificar es invalido"); }
                 }else{JOptionPane.showMessageDialog(this,"El nombre a modificar es invalido"); }
-                }else{JOptionPane.showMessageDialog(this,"El cuit a modificar es invalido"); }
-                }else{JOptionPane.showMessageDialog(this,"El dni a modificar es invalido"); }
+                }else{JOptionPane.showMessageDialog(this,"El cuit a modificar es invalido\n\nRecuerde debe tener 10 digitos o menos"); }
+                }else{JOptionPane.showMessageDialog(this,"El dni a modificar es invalido\n\nRecuerde debe tener 8 digitos o menos"); }
         
         }
+        cargaDatosMesero();
     }//GEN-LAST:event_jbModificarActionPerformed
 public void armaCabeceraTabla(){
            //Titulos de Columnas

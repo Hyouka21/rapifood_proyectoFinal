@@ -8,6 +8,7 @@ package rapifood.vistas.menu;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import rapifood.vistas.menu.detallepedido.DetalleGuardartest;
@@ -28,12 +29,18 @@ public class Menu extends javax.swing.JFrame {
      * Creates new form Menu
      */
     public Menu() {
+        
         initComponents();
+    
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setLocationRelativeTo(null);
         //setIconImage(new ImageIcon(getClass().getResource("image/icono.jpg")).getImage());
     }
-
+@Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("image/icono.png"));
+    return retValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,6 +89,7 @@ public class Menu extends javax.swing.JFrame {
         jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -203,7 +211,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         DetalleGuardartest dg=new DetalleGuardartest();
-              escritorio.removeAll();
+             // escritorio.removeAll();
         escritorio.repaint();
         dg.setVisible(true);
         escritorio.add(dg);
@@ -212,7 +220,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         ReservaRegistrar rr=new ReservaRegistrar();
-        escritorio.removeAll();
+       // escritorio.removeAll();
         escritorio.repaint();
         rr.setVisible(true);
         escritorio.add(rr);
@@ -221,7 +229,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         GuardarPedido gp=new GuardarPedido();
-        escritorio.removeAll();
+      //  escritorio.removeAll();
         escritorio.repaint();
         gp.setVisible(true);
         escritorio.add(gp);
@@ -231,7 +239,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
         PedidosXFecha pf=new PedidosXFecha();
-        escritorio.removeAll();
+      //  escritorio.removeAll();
         escritorio.repaint();
         pf.setVisible(true);
         escritorio.add(pf);
@@ -241,7 +249,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         // TODO add your handling code here:
          GuardarMesero gm=new GuardarMesero();
-        escritorio.removeAll();
+      //  escritorio.removeAll();
         escritorio.repaint();
         gm.setVisible(true);
         escritorio.add(gm);
@@ -250,7 +258,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         MesaGuardar mg=new MesaGuardar();
-        escritorio.removeAll();
+      //  escritorio.removeAll();
         escritorio.repaint();
         mg.setVisible(true);
         escritorio.add(mg);

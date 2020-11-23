@@ -293,9 +293,9 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
                     
             int id=(Integer) modelo.getValueAt(filaSeleccionada, 0);
             
-            String val="^[0-9 \\s 0-9]+$";
+            String val="^[0-9]+$";
             String nomb="[a-z \\s A-Z]*";
-            if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(nomb)){
+            if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(nomb)&& Double.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString())<3000000){
             if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val)){
                 String nom= modelo.getValueAt(filaSeleccionada, 1).toString();
             double precio=Double.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString());

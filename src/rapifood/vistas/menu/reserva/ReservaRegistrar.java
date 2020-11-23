@@ -593,7 +593,9 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarCambiosActionPerformed
         int filaSelec=jTable.getSelectedRow();
-        
+        Mesa m=(Mesa)jComboBoxMesa.getSelectedItem();
+        int cant=m.getCapacidadMaxima();
+         
         if(filaSelec!=-1){
             String nomb="[a-z \\s A-Z]*";
             String val="[0-9]*";
@@ -602,16 +604,16 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
             if(modelo.getValueAt(filaSelec, 1).toString().matches(val)){
                 if(modelo.getValueAt(filaSelec, 2).toString().matches(nomb)){
                     if(modelo.getValueAt(filaSelec, 3).toString().matches(nomb)){
-                        if(modelo.getValueAt(filaSelec, 4).toString().matches(val)){
-                            if(modelo.getValueAt(filaSelec, 5).toString().matches(val)){
+                        if(modelo.getValueAt(filaSelec, 4).toString().matches(val)&& modelo.getValueAt(filaSelec, 4).toString().length()<=8){
+                            if(modelo.getValueAt(filaSelec, 5).toString().matches(val)&&Integer.parseInt(modelo.getValueAt(filaSelec, 5).toString())<=cant){
                                 if(modelo.getValueAt(filaSelec, 6).toString().matches(valFecha)){
                                     //if(modelo.getValueAt(filaSelec, 7).toString().matches(valFecha)){
-                                        int id =(Integer) modelo.getValueAt(filaSelec, 0);
+                                        int id =Integer.parseInt(modelo.getValueAt(filaSelec, 0).toString());
                                         Mesa mesa =(Mesa) modelo.getValueAt(filaSelec, 1);
                                         String nombre = modelo.getValueAt(filaSelec, 2).toString();
                                         String apellido = modelo.getValueAt(filaSelec, 3).toString();
-                                        int dni = (Integer) modelo.getValueAt(filaSelec, 4);
-                                        int comensales = (Integer) modelo.getValueAt(filaSelec, 5);
+                                        int dni = Integer.parseInt(modelo.getValueAt(filaSelec, 4).toString());
+                                        int comensales = Integer.parseInt(modelo.getValueAt(filaSelec, 5).toString());
                                         
                                         String fechastr= modelo.getValueAt(filaSelec, 6).toString();
                                         
@@ -619,7 +621,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                         String fecha1 = test[0];
                                         String hora1 = test[1];
                                         
-                                        System.out.println(fecha1+" "+hora1);
+                                 
                                         LocalDate fecha = LocalDate.parse(fecha1);
                                         LocalTime hora = LocalTime.parse(hora1);
                                        
@@ -650,17 +652,17 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                     //}
                                     
                                 }else{
-                                    JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DD");
+                                    JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DDT-hh:mm");
                                     cargaDatosReserva();
                                 }
                                 
                             }else{
-                                JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna COMENSALES");
+                                JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna COMENSALES\n\nRecuerde deben ser menores o iguales ala cantidad de mesa");
                                 cargaDatosReserva();
                             }
                             
                         }else{
-                            JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna DNI");
+                            JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna DNI\n\nRecuerde que la cantidad de digitos deben ser menores iguales a 8");
                             cargaDatosReserva();
                         }
                         
