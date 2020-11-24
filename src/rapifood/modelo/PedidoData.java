@@ -136,14 +136,13 @@ public class PedidoData {
      * **************************************************************************************************************************************************************************************
      */
     public Mesero buscarMesero(int id) {
-        Conexion c = new Conexion();
-        MeseroData meseroData = new MeseroData(c);
+        MeseroData meseroData = new MeseroData();
         return meseroData.buscarMesero(id);
     }
 
     public Mesa buscarMesa(int id) {
-        Conexion c = new Conexion();
-        MesaData mesaData = new MesaData(c);
+       
+        MesaData mesaData = new MesaData();
         return mesaData.buscarMesa(id);
     }
 
@@ -163,8 +162,8 @@ public class PedidoData {
                 pedido.setMesero(mesero);
                 pedido.setEstadoPedido(rs.getBoolean(4));
                 pedido.setFechaPedido(rs.getTimestamp(5).toLocalDateTime());
+                
             }
-            rs.close();
             ps.close();
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "No se pudo encontrar");

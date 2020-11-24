@@ -14,6 +14,10 @@ public class MeseroData {
         con = c.getConnection();
     }
 
+    public MeseroData() {
+    }
+    
+
     public void guardarMesero(Mesero mesero) {
         String sql = "INSERT INTO mesero(dni_mesero,cuit_mesero, nombre_mesero, apellido_mesero, estado_mesero)VALUES (?,?,?,?,?)";
         try {
@@ -37,9 +41,11 @@ public class MeseroData {
     
     public Mesero buscarMesero(int id){
     Mesero m =null;
+    Conexion c=new Conexion();
+    Connection con1=c.getConnection();
     String sql="SELECT * FROM mesero WHERE id_mesero=?";
     try{
-        PreparedStatement ps = con.prepareStatement(sql);
+        PreparedStatement ps = con1.prepareStatement(sql);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
         if (rs.next()){
@@ -54,6 +60,7 @@ public class MeseroData {
         }
         rs.close();
         ps.close();
+        con1.close();
     }
     catch(SQLException e){
         

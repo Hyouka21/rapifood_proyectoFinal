@@ -25,7 +25,7 @@ public class Conexion {
             }
             catch (SQLException |ClassNotFoundException e)
             {   
-                JOptionPane.showInternalMessageDialog(null, "Error al conectarse");
+                JOptionPane.showMessageDialog(null, "Error al conectarse");
                 System.err.print(e);
             }
         }

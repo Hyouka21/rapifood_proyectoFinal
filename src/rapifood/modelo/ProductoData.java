@@ -9,7 +9,7 @@ import rapifood.entidades.*;
 
 
 public class ProductoData {
-    private  Connection con;
+    private   Connection con;
     public ProductoData(Conexion c) {
        con= c.getConnection();
     }
@@ -27,24 +27,30 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null,"No puedo obtener id");
             }
+            ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al guardar producto");
         }
     }
     public  Producto buscarProducto(int id){
-        Producto p=null;
+        Producto p=new Producto();
+        Conexion c=new Conexion();
+        Connection con1=c.getConnection();
         String sql="SELECT * FROM producto WHERE id_producto=?";
          try{
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con1.prepareStatement(sql);
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-            p= new Producto();
+            
             p.setIdProducto(rs.getInt(1));
             p.setNombreProducto(rs.getString(2));
             p.setPrecio(rs.getDouble(3));
             p.setEstadoProducto(rs.getBoolean(4));
+            
             }
+            ps.close();
+            con1.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al encontrar producto");
         }
@@ -65,6 +71,7 @@ public class ProductoData {
             p.setEstadoProducto(rs.getBoolean(4));
             productos.add(p);
         }
+            ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al obtener productos");
         }
@@ -85,6 +92,7 @@ public class ProductoData {
             p.setEstadoProducto(rs.getBoolean(4));
             productos.add(p);
         }
+            ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al obtener productos");
         }
@@ -99,6 +107,7 @@ public class ProductoData {
             ps.setBoolean(3, producto.isEstadoProducto());
             ps.setInt(4, producto.getIdProducto());
             ps.executeUpdate();
+            ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al actualizar producto");
         }

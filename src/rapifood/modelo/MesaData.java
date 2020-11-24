@@ -13,6 +13,9 @@ public class MesaData {
     public MesaData(Conexion conexion){
         con=conexion.getConnection();  
     }
+
+    public MesaData() {
+    }
     
     public void guardarMesa(Mesa mesa){
         String sql="INSERT INTO mesa(estado_mesa, capacidad_maxima) VALUES (?,?)";
@@ -41,28 +44,26 @@ public class MesaData {
     }
     
     public Mesa buscarMesa(int id){
-        Mesa mesa=null;
-        
-        String sql="SELECT * FROM mesa WHERE id_mesa=(?)";
-        
-        try{
-            PreparedStatement ps= con.prepareStatement(sql);
-            ps.setInt(1, id);
+        Mesa mesa=new Mesa();
+        String sql="SELECT * FROM mesa WHERE id_mesa=?";  
+        Conexion c=new Conexion();
+        Connection con1=c.getConnection();
+        try{           
             
-            ResultSet rs= ps.executeQuery();
-            
-            if(rs.next()){
-                mesa = new Mesa();
-                mesa.setIdMesa(rs.getInt(1));               //1="id_mesa"
-                mesa.setEstadoMesa(rs.getBoolean(2));       //2="estado_mesa"
-                mesa.setCapacidadMaxima(rs.getInt(3));      //3="capacidad_maxima"
+            PreparedStatement ps = con1.prepareStatement(sql);
                 
-     //           JOptionPane.showMessageDialog(null, "Mesa encontrada");
-            }
-            
-        rs.close();
-        ps.close();
-        //con.close();
+            ps.setInt(1, id);
+ 
+                ResultSet rs= ps.executeQuery();
+                if (rs.next()) {
+                  
+                    mesa.setIdMesa(rs.getInt(1));               //1="id_mesa"
+                    mesa.setEstadoMesa(rs.getBoolean(2));       //2="estado_mesa"
+                    mesa.setCapacidadMaxima(rs.getInt(3));      //3="capacidad_maxima"
+                    
+                    //           JOptionPane.showMessageDialog(null, "Mesa encontrada");
+                }
+                con1.close();
         
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al guardar mesa");
