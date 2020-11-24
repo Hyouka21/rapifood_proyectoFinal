@@ -124,8 +124,7 @@ public class ReservaData {
         return reserva;
     }
      public Mesa buscarMesa(int id){
-            Conexion c =new Conexion();
-            MesaData ad = new MesaData(c);
+            MesaData ad = new MesaData();
             return ad.buscarMesa(id);      
     }
     

@@ -54,11 +54,11 @@ private DefaultTableModel modelo=new DefaultTableModel();
     }
 
     public void regularTamañoColumna(){
-        jTabla.getColumnModel().getColumn(0).setPreferredWidth(10);
-        jTabla.getColumnModel().getColumn(1).setPreferredWidth(15);
-        jTabla.getColumnModel().getColumn(2).setPreferredWidth(40);
+        jTabla.getColumnModel().getColumn(0).setPreferredWidth(5);
+        jTabla.getColumnModel().getColumn(1).setPreferredWidth(10);
+        jTabla.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTabla.getColumnModel().getColumn(3).setPreferredWidth(110);
-        jTabla.getColumnModel().getColumn(4).setPreferredWidth(20);
+        jTabla.getColumnModel().getColumn(4).setPreferredWidth(15);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

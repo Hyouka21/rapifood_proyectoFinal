@@ -247,8 +247,8 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
         else{
              String val="[0-9]*"; // ACOMODAR LA CONSULTA PARA PODER INGRESAR PUNTOS O NO
             String nomb="[a-z \\s A-Z]*";
-            if(jtxtNombre.getText().matches(nomb)){
-                if(jtxtPrecio.getText().matches(val)){  
+            if(jtxtNombre.getText().matches(nomb) && jtxtNombre.getText().length()!=0){
+                if(jtxtPrecio.getText().matches(val) && jtxtPrecio.getText().length()!=0){  
                         int x =JOptionPane.showConfirmDialog(this, "Esta seguro?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                     if(x== JOptionPane.YES_OPTION){
                         String nombre=jtxtNombre.getText();
@@ -293,8 +293,8 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
             
             String val="^[0-9]+\\.[0-9]+$";
             String nomb="[a-z \\s A-Z]*";
-            if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(nomb)&& Double.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString())<3000000){
-            if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val)){
+            if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(nomb) && modelo.getValueAt(filaSeleccionada, 1).toString().length()!=0 && modelo.getValueAt(filaSeleccionada, 1).toString().length()<=14){
+            if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val) && modelo.getValueAt(filaSeleccionada, 2).toString().length() !=0){
                 String nom= modelo.getValueAt(filaSeleccionada, 1).toString();
             double precio=Double.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString());
             boolean b = Boolean.valueOf(modelo.getValueAt(filaSeleccionada, 3).toString());
