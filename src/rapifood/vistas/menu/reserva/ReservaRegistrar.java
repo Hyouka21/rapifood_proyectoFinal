@@ -604,11 +604,12 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
             String valFecha ="^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$";
             
             if(modelo.getValueAt(filaSelec, 1).toString().matches(val)){
-                if(modelo.getValueAt(filaSelec, 2).toString().matches(nomb)){
-                    if(modelo.getValueAt(filaSelec, 3).toString().matches(nomb)){
-                        if(modelo.getValueAt(filaSelec, 4).toString().matches(val)&& modelo.getValueAt(filaSelec, 4).toString().length()<=8){
-                            if(modelo.getValueAt(filaSelec, 5).toString().matches(val)&&Integer.parseInt(modelo.getValueAt(filaSelec, 5).toString())<=cant){
-                                if(modelo.getValueAt(filaSelec, 6).toString().matches(valFecha)){
+                if(modelo.getValueAt(filaSelec, 2).toString().matches(nomb) && modelo.getValueAt(filaSelec, 2).toString().length() != 0){
+                    if(modelo.getValueAt(filaSelec, 3).toString().matches(nomb) && modelo.getValueAt(filaSelec, 3).toString().length() !=0){
+                        if(modelo.getValueAt(filaSelec, 4).toString().matches(val)&& modelo.getValueAt(filaSelec, 4).toString().length()<=8 && modelo.getValueAt(filaSelec, 4).toString().length()!=0){
+                            if(modelo.getValueAt(filaSelec, 5).toString().matches(val) && modelo.getValueAt(filaSelec, 5).toString().length() !=0){
+                                if(Integer.parseInt(modelo.getValueAt(filaSelec, 5).toString())<=cant){                             
+                                    if(modelo.getValueAt(filaSelec, 6).toString().matches(valFecha) && modelo.getValueAt(filaSelec, 6).toString().length() !=0){
                                     //if(modelo.getValueAt(filaSelec, 7).toString().matches(valFecha)){
                                     
        
@@ -659,14 +660,17 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                     //}else{
                                       //  JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DD");
                                     //}
-                                    
+                                    }else{
+                                        JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DDT-hh:mm");
+                                        cargaDatosReserva();
+                                    }
                                 }else{
-                                    JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DDT-hh:mm");
+                                    JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna COMENSALES\\n\\nRecuerde deben ser menores o iguales ala cantidad de mesa");
                                     cargaDatosReserva();
                                 }
                                 
                             }else{
-                                JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna COMENSALES\n\nRecuerde deben ser menores o iguales ala cantidad de mesa");
+                                JOptionPane.showMessageDialog(this, "Ingrese un numero valido y no deje el campo en blanco");
                                 cargaDatosReserva();
                             }
                             

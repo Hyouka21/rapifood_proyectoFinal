@@ -218,11 +218,11 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
                         .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(30, 30, 30)
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -230,7 +230,7 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
-                        .addGap(32, 32, 32)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -240,7 +240,7 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -251,20 +251,20 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
             String nomb="[a-z A-Z]*";
             if(jtDni.getText().matches(val)&&jtDni.getText().length()<=8){
             if(jtCuil.getText().matches(val)&&jtCuil.getText().length()<=10){
-            if(jtNombre.getText().matches(nomb)){
-            if(jtApellido.getText().matches(nomb)){
+            if(jtNombre.getText().matches(nomb) && jtNombre.getText().length() !=0){
+            if(jtApellido.getText().matches(nomb) && jtApellido.getText().length() !=0){
  //////////////////////Para la proxima usar string en un cuil///////////////////////////////////    
-        int dni=Integer.parseInt(jtDni.getText());
-        int cuit=Integer.parseInt(jtCuil.getText());
-        String nombre=jtNombre.getText();
-        String apellido=jtApellido.getText();
-        boolean est=jcbEstado.isEnabled();
-        Mesero m= new Mesero(dni,cuit,nombre,apellido,est);
-        int x = JOptionPane.showConfirmDialog(this, "Esta seguro guardar?", "ATENCION!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (x == JOptionPane.YES_OPTION) {
-        md.guardarMesero(m);
-        porDefecto();
-        }
+                int dni=Integer.parseInt(jtDni.getText());
+                int cuit=Integer.parseInt(jtCuil.getText());
+                String nombre=jtNombre.getText();
+                String apellido=jtApellido.getText();
+                boolean est=jcbEstado.isEnabled();
+                Mesero m= new Mesero(dni,cuit,nombre,apellido,est);
+                int x = JOptionPane.showConfirmDialog(this, "Esta seguro guardar?", "ATENCION!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (x == JOptionPane.YES_OPTION) {
+                md.guardarMesero(m);
+                porDefecto();
+                }
             }else{
             JOptionPane.showMessageDialog(this, "Ingrese un apellido valido");
             }
@@ -291,30 +291,30 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
             String val="^[0-9]+$";
             String nomb="[a-z A-Z]*";
                  if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(val) && modelo.getValueAt(filaSeleccionada, 1).toString().length()<=8){
-                if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val) && modelo.getValueAt(filaSeleccionada, 2).toString().length()<=10){
-                if(modelo.getValueAt(filaSeleccionada, 3).toString().matches(nomb)){
-                if(modelo.getValueAt(filaSeleccionada, 4).toString().matches(nomb)){     
+                    if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val) && modelo.getValueAt(filaSeleccionada, 2).toString().length()<=10){
+                        if(modelo.getValueAt(filaSeleccionada, 3).toString().matches(nomb) && modelo.getValueAt(filaSeleccionada, 3).toString().length() != 0){
+                            if(modelo.getValueAt(filaSeleccionada, 4).toString().matches(nomb) && modelo.getValueAt(filaSeleccionada, 4).toString().length() != 0){     
                       
-                int dni=Integer.parseInt(modelo.getValueAt(filaSeleccionada, 1).toString());
-                int cuit=Integer.parseInt(modelo.getValueAt(filaSeleccionada, 2).toString());
-                String nombre=modelo.getValueAt(filaSeleccionada, 3).toString();
-                String apellido=modelo.getValueAt(filaSeleccionada, 4).toString();
-                boolean est=Boolean.valueOf(modelo.getValueAt(filaSeleccionada, 5).toString());
-                Mesero m;
-                m = md.buscarMesero(id);
-                m.setDni(dni);
-                m.setCuit(cuit);
-                m.setNombre(nombre);
-                m.setApellido(apellido);
-                m.setEstado(est);
-                int x =JOptionPane.showConfirmDialog(this, "Desea cambiar Producto?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-            if(x== JOptionPane.YES_OPTION){
-                md.actualizarMesero(m);}
-                cargaDatosMesero();
+                                int dni=Integer.parseInt(modelo.getValueAt(filaSeleccionada, 1).toString());
+                                int cuit=Integer.parseInt(modelo.getValueAt(filaSeleccionada, 2).toString());
+                                String nombre=modelo.getValueAt(filaSeleccionada, 3).toString();
+                                String apellido=modelo.getValueAt(filaSeleccionada, 4).toString();
+                                boolean est=Boolean.valueOf(modelo.getValueAt(filaSeleccionada, 5).toString());
+                                Mesero m;
+                                m = md.buscarMesero(id);
+                                m.setDni(dni);
+                                m.setCuit(cuit);
+                                m.setNombre(nombre);
+                                m.setApellido(apellido);
+                                m.setEstado(est);
+                                int x =JOptionPane.showConfirmDialog(this, "Desea cambiar Producto?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+                                if(x== JOptionPane.YES_OPTION){
+                                    md.actualizarMesero(m);}
+                                    cargaDatosMesero();
            
-                }else{JOptionPane.showMessageDialog(this,"El apellido a modificar es invalido"); }
-                }else{JOptionPane.showMessageDialog(this,"El nombre a modificar es invalido"); }
-                }else{JOptionPane.showMessageDialog(this,"El cuit a modificar es invalido\n\nRecuerde debe tener 10 digitos o menos"); }
+                            }else{JOptionPane.showMessageDialog(this,"El apellido a modificar es invalido"); }
+                        }else{JOptionPane.showMessageDialog(this,"El nombre a modificar es invalido"); }
+                    }else{JOptionPane.showMessageDialog(this,"El cuit a modificar es invalido\n\nRecuerde debe tener 10 digitos o menos"); }
                 }else{JOptionPane.showMessageDialog(this,"El dni a modificar es invalido\n\nRecuerde debe tener 8 digitos o menos"); }
         
         }

@@ -250,7 +250,7 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
             
             String val="[0-9]*";
             
-            if(modelo.getValueAt(filaSelec, 1).toString().matches(val)){
+            if(modelo.getValueAt(filaSelec, 1).toString().matches(val) && modelo.getValueAt(filaSelec, 1).toString().length() !=0){
 
             int id = Integer.parseInt(modelo.getValueAt(filaSelec,0).toString());        
             int cantidadPersona = Integer.parseInt(modelo.getValueAt(filaSelec, 1).toString());
