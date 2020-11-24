@@ -96,15 +96,15 @@ public class DetallePedidoData {
     }
    
    public Producto buscarProducto(int id){
-       Conexion c=new Conexion();
-       ProductoData pd=new ProductoData(c);
+       
+       ProductoData pd=new ProductoData();
        Producto p;
        p=pd.buscarProducto(id);
        return p;
    }  
    public Pedido buscarPedido(int id){
-       Conexion c=new Conexion();
-       PedidoData pd = new PedidoData(c);
+       
+       PedidoData pd = new PedidoData();
        Pedido p;
        p=pd.buscarPedido(id);
        return p;

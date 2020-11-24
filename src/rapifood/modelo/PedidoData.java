@@ -15,6 +15,9 @@ public class PedidoData {
         con = conexion.getConnection();
     }
 
+    public PedidoData() {
+    }
+
     /**
      * **************************************************************************************************************************************************************************************
      */
@@ -148,9 +151,11 @@ public class PedidoData {
 
     public Pedido buscarPedido(int id) {
         Pedido pedido = null;
+        Conexion c=new Conexion();
+        Connection con1=c.getConnection();
         String sql = "SELECT * FROM pedido WHERE pedido.id_pedido=?";
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con1.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -165,6 +170,7 @@ public class PedidoData {
                 
             }
             ps.close();
+            con1.close();
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "No se pudo encontrar");
         }

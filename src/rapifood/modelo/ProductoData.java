@@ -13,6 +13,10 @@ public class ProductoData {
     public ProductoData(Conexion c) {
        con= c.getConnection();
     }
+
+    public ProductoData() {
+    }
+    
     public void guardarProducto(Producto producto){
         String sql="INSERT INTO producto( nombre_producto, precio_producto, estado_producto) VALUES (?,?,?)";
       try{
