@@ -82,7 +82,7 @@ private DefaultTableModel modelo=new DefaultTableModel();
         jcbProducto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jsCantidad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jsCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        jsCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, 50, 1));
 
         jbGuardar.setBackground(new java.awt.Color(0, 255, 0));
         jbGuardar.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N

@@ -6,12 +6,10 @@
 package rapifood.vistas.menu.pruducto;
 
 import java.awt.Container;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import rapifood.entidades.Producto;
@@ -247,7 +245,7 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Uno de los campos esta vacio!");
         }
         else{
-             String val="^[0-9]+\\.[0-9]+$"; // ACOMODAR LA CONSULTA PARA PODER INGRESAR PUNTOS O NO
+             String val="[0-9]*"; // ACOMODAR LA CONSULTA PARA PODER INGRESAR PUNTOS O NO
             String nomb="[a-z \\s A-Z]*";
             if(jtxtNombre.getText().matches(nomb)){
                 if(jtxtPrecio.getText().matches(val)){  
@@ -293,7 +291,7 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
                     
             int id=(Integer) modelo.getValueAt(filaSeleccionada, 0);
             
-            String val="^[0-9]+$";
+            String val="^[0-9]+\\.[0-9]+$";
             String nomb="[a-z \\s A-Z]*";
             if(modelo.getValueAt(filaSeleccionada, 1).toString().matches(nomb)&& Double.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString())<3000000){
             if(modelo.getValueAt(filaSeleccionada, 2).toString().matches(val)){

@@ -2,16 +2,14 @@
 package rapifood.vistas.menu.reserva;
 
 import java.awt.Container;
+import java.awt.HeadlessException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner.DefaultEditor;
@@ -30,6 +28,8 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
     Reserva reserva;
     ReservaData rd;
     MesaData md;
+    private int cant=0;
+    boolean guarda=false;
     private DefaultTableModel modelo=new DefaultTableModel();
     
     public ReservaRegistrar() {
@@ -55,15 +55,15 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
        
     }
     public void regularTamañoColumna(){
-        jTable.getColumnModel().getColumn(0).setPreferredWidth(40);
-        jTable.getColumnModel().getColumn(1).setPreferredWidth(40);
+        jTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        jTable.getColumnModel().getColumn(1).setPreferredWidth(30);
         jTable.getColumnModel().getColumn(2).setPreferredWidth(60);
         jTable.getColumnModel().getColumn(3).setPreferredWidth(60);
-        jTable.getColumnModel().getColumn(4).setPreferredWidth(50);
-        jTable.getColumnModel().getColumn(5).setPreferredWidth(80);
-        jTable.getColumnModel().getColumn(6).setPreferredWidth(110);
+        jTable.getColumnModel().getColumn(4).setPreferredWidth(60);
+        jTable.getColumnModel().getColumn(5).setPreferredWidth(70);
+        jTable.getColumnModel().getColumn(6).setPreferredWidth(130);
         jTable.getColumnModel().getColumn(7).setPreferredWidth(135);
-        jTable.getColumnModel().getColumn(8).setPreferredWidth(50);
+        jTable.getColumnModel().getColumn(8).setPreferredWidth(40);
     }
     
     public void cargarComboBox(){
@@ -301,7 +301,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
 
         jSpinnerHora.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
 
-        jSpinnerMins.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+        jSpinnerMins.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 5));
 
         jLabel9.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabel9.setText("Hora Reserva:");
@@ -495,6 +495,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMesaActionPerformed
+        
         Mesa m=(Mesa)jComboBoxMesa.getSelectedItem();
         jLabelmesaCant.setText(String.valueOf(m.getCapacidadMaxima()));
     }//GEN-LAST:event_jComboBoxMesaActionPerformed
@@ -592,6 +593,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
     private void jButtonGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarCambiosActionPerformed
+          
         int filaSelec=jTable.getSelectedRow();
         Mesa m=(Mesa)jComboBoxMesa.getSelectedItem();
         int cant=m.getCapacidadMaxima();
@@ -608,6 +610,8 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                             if(modelo.getValueAt(filaSelec, 5).toString().matches(val)&&Integer.parseInt(modelo.getValueAt(filaSelec, 5).toString())<=cant){
                                 if(modelo.getValueAt(filaSelec, 6).toString().matches(valFecha)){
                                     //if(modelo.getValueAt(filaSelec, 7).toString().matches(valFecha)){
+                                    
+       
                                         int id =Integer.parseInt(modelo.getValueAt(filaSelec, 0).toString());
                                         Mesa mesa =(Mesa) modelo.getValueAt(filaSelec, 1);
                                         String nombre = modelo.getValueAt(filaSelec, 2).toString();
@@ -632,21 +636,26 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                                         
                                         int x =JOptionPane.showConfirmDialog(this, "Desea modificar la Reserva?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
                                             if(x== JOptionPane.YES_OPTION){
-                                                Reserva r;
-                                                r = rd.buscarReserva(id);
-                                                r.setMesa(mesa);
-                                                r.setNombreCliente(nombre);
-                                                r.setApellidoCliente(apellido);
-                                                r.setDniCliente(dni);
-                                                r.setCantidadCliente(comensales);
-                                                r.setFechaReserva(fechaReserva);
-                                                r.setEstadoReserva(estado);
-                                                
-                                                rd.actualizarReserva(r);
-                                                borraFilasTabla();
-                                                cargaDatosReserva();
+                                                if(filaSelec!=-1){
+                                                    Reserva r;
+                                                    r = rd.buscarReserva(id);
+                                                    r.setMesa(mesa);
+                                                    r.setNombreCliente(nombre);
+                                                    r.setApellidoCliente(apellido);
+                                                    r.setDniCliente(dni);
+                                                    r.setCantidadCliente(comensales);
+                                                    r.setFechaReserva(fechaReserva);
+                                                    r.setEstadoReserva(estado);
+
+                                                    rd.actualizarReserva(r);
+                                                    borraFilasTabla();
+                                                    cargaDatosReserva();
+                                                    guarda=true;
+                                                }else{
+                                                   JOptionPane.showMessageDialog(this, "Seleccione una reserva a modificar");
+                                                     }
                                             }
-                                        
+                                  
                                     //}else{
                                       //  JOptionPane.showMessageDialog(this, "INGRESE UNA FECHA CON EL FORMATO YYYY-MM-DD");
                                     //}
@@ -680,8 +689,9 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna MESA");
                 cargaDatosReserva();
             }
-        }
-        cargaDatosReserva();
+          cargaDatosReserva();  
+        } 
+   
     }//GEN-LAST:event_jButtonGuardarCambiosActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -711,7 +721,18 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        cargaDatosReserva();
+        if(guarda){
+            cant=0;
+            guarda=false;
+        }
+        
+        if(cant<1){
+            cargaDatosReserva();
+            cant++;
+        }else{
+            JOptionPane.showMessageDialog(this, "Realice algun cambio para actualizar");
+        }
+
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
 

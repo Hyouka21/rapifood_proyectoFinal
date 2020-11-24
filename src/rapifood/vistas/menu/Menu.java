@@ -38,7 +38,7 @@ public class Menu extends javax.swing.JFrame {
     }
 @Override
     public Image getIconImage(){
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("image/icono.png"));
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("image/hamburguesa.png"));
     return retValue;
     }
     /**
