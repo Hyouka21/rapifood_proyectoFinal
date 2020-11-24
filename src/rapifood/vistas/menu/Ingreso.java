@@ -5,6 +5,8 @@
  */
 package rapifood.vistas.menu;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,8 +20,14 @@ public class Ingreso extends javax.swing.JFrame {
      */
     public Ingreso() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setTitle("RapiFood");
     }
-
+@Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("image/hamburguesa.png"));
+    return retValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,6 +45,8 @@ public class Ingreso extends javax.swing.JFrame {
         jPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
+        setResizable(false);
 
         jLabel1.setText("Usuario:");
 
@@ -109,6 +119,7 @@ public class Ingreso extends javax.swing.JFrame {
        if(usuario.equals("rapifood")&&pass.equals("grupo4")){
        Menu m= new Menu();
        m.setVisible(true);
+       this.dispose();
        }else{
        JOptionPane.showMessageDialog(this, "El usuario o la contraseña son invalidos!");
        }

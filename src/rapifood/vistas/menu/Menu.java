@@ -35,6 +35,8 @@ public class Menu extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setLocationRelativeTo(null);
         //setIconImage(new ImageIcon(getClass().getResource("image/icono.jpg")).getImage());
+        this.setTitle("RapiFood");
+     
     }
 @Override
     public Image getIconImage(){

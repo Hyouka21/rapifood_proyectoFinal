@@ -4,11 +4,14 @@ import java.time.*;
 import java.util.*;
 import rapifood.entidades.*;
 import rapifood.modelo.*;
+import rapifood.vistas.menu.Ingreso;
 
 public class RapiFood {
 
     public static void main(String[] args) {
         Conexion c = new Conexion();
+        Ingreso i=new Ingreso();
+        i.setVisible(true);
        //Producto producto = new Producto("Gatorade",120,true);
        //ProductoData pd = new ProductoData(c);
         //List<Producto>lprod=new ArrayList<>();
