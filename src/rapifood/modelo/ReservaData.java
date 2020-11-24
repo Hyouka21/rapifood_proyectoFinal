@@ -83,7 +83,7 @@ public class ReservaData {
             ps.executeUpdate();
             ps.close();
             
-            JOptionPane.showMessageDialog(null,"Actualizacion realizada con exito");
+            //JOptionPane.showMessageDialog(null,"Actualizacion realizada con exito");
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"Error al actualizar Reserva");

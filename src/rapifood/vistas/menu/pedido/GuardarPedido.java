@@ -298,6 +298,7 @@ private DefaultTableModel modelo=new DefaultTableModel();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActActionPerformed
+        
         jDateChooser1.setDate(null);
         cargaPedido();
     }//GEN-LAST:event_jbActActionPerformed
