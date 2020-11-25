@@ -675,7 +675,7 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                             }
                             
                         }else{
-                            JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna DNI\n\nRecuerde que la cantidad de digitos deben ser menores iguales a 8");
+                            JOptionPane.showMessageDialog(this, "Ingrese solo numeros en la columna DNI \\n Recuerde que la cantidad de digitos deben ser menores iguales a 8");
                             cargaDatosReserva();
                         }
                         
@@ -694,7 +694,9 @@ public class ReservaRegistrar extends javax.swing.JInternalFrame {
                 cargaDatosReserva();
             }
           cargaDatosReserva();  
-        } 
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione una reserva a modificar");
+        }
    
     }//GEN-LAST:event_jButtonGuardarCambiosActionPerformed
 

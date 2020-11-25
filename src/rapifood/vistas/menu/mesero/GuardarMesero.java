@@ -317,6 +317,8 @@ public class GuardarMesero extends javax.swing.JInternalFrame {
                     }else{JOptionPane.showMessageDialog(this,"El cuit a modificar es invalido\n\nRecuerde debe tener 10 digitos o menos"); }
                 }else{JOptionPane.showMessageDialog(this,"El dni a modificar es invalido\n\nRecuerde debe tener 8 digitos o menos"); }
         
+        }else{
+            JOptionPane.showMessageDialog(this,"Debe seleccionar el mesero a modificar");
         }
         cargaDatosMesero();
     }//GEN-LAST:event_jbModificarActionPerformed

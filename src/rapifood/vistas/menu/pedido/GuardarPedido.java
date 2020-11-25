@@ -52,6 +52,7 @@ private DefaultTableModel modelo=new DefaultTableModel();
         BasicInternalFrameUI ui = (BasicInternalFrameUI)this.getUI(); Container north = (Container)ui.getNorthPane(); north.remove(0); north.validate(); north.repaint();
         
     }
+    
 
     public void regularTamañoColumna(){
         jTabla.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -304,20 +305,22 @@ private DefaultTableModel modelo=new DefaultTableModel();
     }//GEN-LAST:event_jbActActionPerformed
 
     private void jbGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarCambiosActionPerformed
-        
-        int x = JOptionPane.showConfirmDialog(this, "Esta seguro ?", "ATENCION!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (x == JOptionPane.YES_OPTION) {
         int filaSeleccionada=jTabla.getSelectedRow();
         if(filaSeleccionada!=-1){
+        int x = JOptionPane.showConfirmDialog(this, "Esta seguro ?", "ATENCION!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (x == JOptionPane.YES_OPTION) {
+        
+        
             int id=(Integer)modelo.getValueAt(filaSeleccionada, 0);
             Pedido p=pd.buscarPedido(id);
             boolean est=(boolean)modelo.getValueAt(filaSeleccionada, 4);
             p.setEstadoPedido(est);
             pd.actualizarPedido(p);
             cargaPedido();
-        }else{
-            JOptionPane.showMessageDialog(this, "Seleccione un pedido a modificar");
+       
         }
+         }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un pedido a modificar");
         }
     }//GEN-LAST:event_jbGuardarCambiosActionPerformed
  public void cargarMesas(){

@@ -9,8 +9,11 @@ package rapifood.vistas.menu;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import rapifood.vistas.menu.detallepedido.DetalleGuardartest;
 import rapifood.vistas.menu.mesa.MesaGuardar;
 import rapifood.vistas.menu.mesero.GuardarMesero;
@@ -36,13 +39,34 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         //setIconImage(new ImageIcon(getClass().getResource("image/icono.jpg")).getImage());
         this.setTitle("RapiFood");
-     
+        cerrar();
     }
 @Override
     public Image getIconImage(){
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("image/hamburguesa.png"));
     return retValue;
     }
+//    metodo para confirmar el cierre del JFrame
+    public void cerrar(){
+        try{
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+             addWindowListener(new WindowAdapter(){
+                 public void windowClosing(WindowEvent e){
+            confirmarSalida();
+            }
+            });
+            this.setVisible(true);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void confirmarSalida(){
+        int x =JOptionPane.showConfirmDialog(this, "Esta seguro de cerrar la ventana?","ATENCION!!",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+    if(x==JOptionPane.YES_OPTION){
+        this.dispose();
+    }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -203,7 +227,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
                 ProductoGuardar pg=new ProductoGuardar();
-              escritorio.removeAll();
+          //    escritorio.removeAll();
         escritorio.repaint();
         pg.setVisible(true);
         escritorio.add(pg);

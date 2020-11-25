@@ -276,6 +276,8 @@ public class MesaGuardar extends javax.swing.JInternalFrame {
                 JOptionPane.showInternalMessageDialog(this, "Ingrese numeros entre 1 y 12.");
                 cargaDatosMesa();
             }
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una mesa a modificar");
         }
         cargaDatosMesa();
     }//GEN-LAST:event_jButtonGuardarCambiosActionPerformed

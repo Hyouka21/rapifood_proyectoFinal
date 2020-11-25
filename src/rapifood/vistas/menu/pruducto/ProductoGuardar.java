@@ -317,6 +317,8 @@ public class ProductoGuardar extends javax.swing.JInternalFrame {
             cargaDatosProducto();
             }
             cargaDatosProducto();
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto a modificar");
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
